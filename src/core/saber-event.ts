@@ -5,16 +5,11 @@
  * @Last Modified time: 2019-04-05 14:41:36
  */
 export type Todo<T> = (data: T) => void
-/**
- * Listeners
- *
- * @export
- * @interface Listeners
- */
-export interface Listeners {
-  [name: string]: Todo<any>
+export type Listener = {
+  name: string
+  todo: Todo<any>
 }
-const listeners: Listeners = {}
+let listeners: Listener[] = []
 /**
  * createAction
  *
@@ -49,8 +44,8 @@ export function subscribe<Action extends createAction>(
   name: Action['name'],
   todo: Todo<Action['data']>
 ): UnSubscribe {
-  name in listeners || (listeners[name] = todo)
-  return () => name in listeners && delete listeners[name]
+  listeners.push({ name, todo })
+  return () => (listeners = listeners.filter(l => l.todo !== todo))
 }
 /**
  * dispatch
@@ -64,5 +59,10 @@ export function dispatch<Action extends createAction>(
   name: Action['name'],
   data: Action['data']
 ) {
-  listeners[name](data)
+  listeners
+    .reduce(
+      (out, cur) => (cur.name === name ? out.concat(cur) : out),
+      [] as Listener[]
+    )
+    .forEach(l => l.todo(data))
 }

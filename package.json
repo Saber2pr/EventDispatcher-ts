@@ -1,6 +1,6 @@
 {
   "name": "@saber2pr/event",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Subscribe/Publish",
   "repository": {
     "type": "git",
@@ -11,6 +11,12 @@
   "files": [
     "lib/core/*",
     "lib/index.*"
+  ],
+  "keywords": [
+    "event",
+    "subscribe",
+    "dispatch",
+    "typescript"
   ],
   "main": "./lib/index.js",
   "scripts": {
