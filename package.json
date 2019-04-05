@@ -1,0 +1,23 @@
+{
+  "name": "@saber2pr/event",
+  "version": "0.0.1",
+  "description": "Subscribe/Publish",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saber2pr/saber-event.git"
+  },
+  "author": "saber2pr",
+  "license": "ISC",
+  "files": [
+    "lib/core/*",
+    "lib/index.*"
+  ],
+  "main": "./lib/index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "test": "node ./lib/test/test.js"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.1"
+  }
+}
