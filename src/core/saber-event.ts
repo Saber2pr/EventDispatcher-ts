@@ -9,7 +9,7 @@ export type Listener = {
   name: string
   todo: Todo<any>
 }
-let listeners: Listener[] = []
+let __listeners: Listener[] = []
 /**
  * createAction
  *
@@ -44,8 +44,8 @@ export function subscribe<Action extends createAction>(
   name: Action['name'],
   todo: Todo<Action['data']>
 ): UnSubscribe {
-  listeners.push({ name, todo })
-  return () => (listeners = listeners.filter(l => l.todo !== todo))
+  __listeners.push({ name, todo })
+  return () => (__listeners = __listeners.filter(l => l.todo !== todo))
 }
 /**
  * dispatch
@@ -59,10 +59,13 @@ export function dispatch<Action extends createAction>(
   name: Action['name'],
   data: Action['data']
 ) {
-  listeners
-    .reduce(
-      (out, cur) => (cur.name === name ? out.concat(cur) : out),
-      [] as Listener[]
-    )
-    .forEach(l => l.todo(data))
+  const listeners = __listeners.reduce(
+    (out, cur) => (cur.name === name ? out.concat(cur) : out),
+    [] as Listener[]
+  )
+  if (listeners.length) {
+    listeners.forEach(l => l.todo(data))
+  } else {
+    throw new Error(`no listeners of name:[${name}]`)
+  }
 }
