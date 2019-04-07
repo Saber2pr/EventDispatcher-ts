@@ -1,6 +1,6 @@
 {
   "name": "@saber2pr/event",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Subscribe/Publish",
   "repository": {
     "type": "git",
@@ -25,12 +25,10 @@
     "build": "rollup -c"
   },
   "devDependencies": {
-    "typescript": "^3.2.1",
     "rollup": "^1.1.2",
     "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^4.0.0"
-  },
-  "dependencies": {
-    "rollup-plugin-uglify": "^6.0.2"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "typescript": "^3.2.1"
   }
 }
