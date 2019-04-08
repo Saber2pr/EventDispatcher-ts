@@ -4,7 +4,7 @@
  * @Last Modified by:   saber2pr
  * @Last Modified time: 2019-04-08 12:20:43
  */
-import { warning } from './utils/warning'
+import { Exception } from './utils/error'
 
 export type Todo<T> = (data: T) => void
 export type Listener = {
@@ -68,6 +68,6 @@ export function dispatch<Action extends createAction>(
   if (listeners.length) {
     listeners.forEach(l => l.todo(data))
   } else {
-    warning(`no listeners of name:[${name}]`)
+    Exception(`no listeners of name:[${name}]`)
   }
 }
