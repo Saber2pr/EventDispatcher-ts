@@ -11,8 +11,20 @@
 
 <body>
   <script>
+    function warning(message) {
+      if (typeof window !== 'undefined') {
+        console.error(message)
+      } else {
+        try {
+          throw new Error(message)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    }
     sevent.subscribe('test', data => console.log('test sevent', data))
     sevent.dispatch('test', 233)
+    warning('test')
   </script>
 </body>
 

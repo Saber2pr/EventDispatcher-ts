@@ -1,9 +1,11 @@
 /*
  * @Author: saber2pr
- * @Date: 2019-04-05 14:16:31
- * @Last Modified by: saber2pr
- * @Last Modified time: 2019-04-05 14:41:36
+ * @Date: 2019-04-08 12:20:43
+ * @Last Modified by:   saber2pr
+ * @Last Modified time: 2019-04-08 12:20:43
  */
+import { warning } from './utils/warning'
+
 export type Todo<T> = (data: T) => void
 export type Listener = {
   name: string
@@ -66,6 +68,6 @@ export function dispatch<Action extends createAction>(
   if (listeners.length) {
     listeners.forEach(l => l.todo(data))
   } else {
-    throw new Error(`no listeners of name:[${name}]`)
+    warning(`no listeners of name:[${name}]`)
   }
 }
