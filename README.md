@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@saber2pr/event.svg?color=blue)](https://www.npmjs.com/package/@saber2pr/event)
 
-min-size:[`765 bytes`]
+min-size:[`934 bytes`]
 
 > Subscribe/Publish
 
@@ -22,7 +22,11 @@ subscribe('test', data => console.log(data))
 
 ## dispatch
 
-参数：dispatch(eventName, data?)
+参数：dispatch(eventName, data, callbackfn?)
+
+1. eventName 事件名
+2. data 消息数据
+3. callbackfn 事件名匹配中间件
 
 ```js
 dispatch('test', 233)

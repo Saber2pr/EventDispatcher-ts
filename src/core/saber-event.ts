@@ -56,13 +56,15 @@ export function subscribe<Action extends createAction>(
  * @template Action
  * @param {Action['name']} name
  * @param {Action['data']} data
+ * @param {(current: string) => string} [callbackfn=current => current]
  */
 export function dispatch<Action extends createAction>(
   name: Action['name'],
-  data: Action['data']
+  data: Action['data'],
+  callbackfn: (current: string) => string = current => current
 ) {
   const listeners = __listeners.reduce(
-    (out, cur) => (cur.name === name ? out.concat(cur) : out),
+    (out, cur) => (callbackfn(cur.name) === name ? out.concat(cur) : out),
     [] as Listener[]
   )
   if (listeners.length) {
