@@ -1,10 +1,11 @@
 /*
  * @Author: saber2pr
  * @Date: 2019-04-08 12:20:43
- * @Last Modified by:   saber2pr
- * @Last Modified time: 2019-04-08 12:20:43
+ * @Last Modified by: saber2pr
+ * @Last Modified time: 2019-04-14 13:31:16
  */
 import { Exception } from './utils/error'
+import { match } from './utils/validators'
 
 export type Todo<T> = (data: T) => void
 export type Listener = {
@@ -62,7 +63,7 @@ export function dispatch<Action extends createAction>(
   data: Action['data']
 ) {
   const listeners = __listeners.reduce(
-    (out, cur) => (cur.name === name ? out.concat(cur) : out),
+    (out, cur) => (match(cur.name, name) ? out.concat(cur) : out),
     [] as Listener[]
   )
   if (listeners.length) {

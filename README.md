@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@saber2pr/event.svg?color=blue)](https://www.npmjs.com/package/@saber2pr/event)
 
-min-size:[`891 bytes`]
+min-size:[`1.01 kb`]
 
 > Subscribe/Publish
 
@@ -16,6 +16,8 @@ npm install @saber2pr/event
 
 参数: subscribe(eventName, callback)
 
+> `eventName可设置为*，表示订阅所有消息(拦截器)`
+
 ```js
 subscribe('test', data => console.log(data))
 ```
@@ -26,6 +28,8 @@ subscribe('test', data => console.log(data))
 
 1. eventName 事件名
 2. data 消息数据
+
+> `eventName可设置为*，表示发布公共消息(观测者)`
 
 ```js
 dispatch('test', 233)
