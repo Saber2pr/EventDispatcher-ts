@@ -7,42 +7,24 @@
 import { Exception } from './utils/error'
 import { match } from './utils/validators'
 
-export type Todo<T> = (data: T) => void
-export type Listener = {
+export type Todo<T = any> = (data?: T) => void
+
+export type Listener<T = any> = {
   name: string
-  todo: Todo<any>
+  todo: Todo<T>
 }
+
 let __listeners: Listener[] = []
-/**
- * createAction
- *
- * @export
- * @interface createAction
- * @template N
- * @template T
- */
+
 export interface createAction<N = any, T = any> {
   name: N
   data: T
 }
-/**
- * UnSubscribe
- *
- * @export
- * @interface UnSubscribe
- */
+
 export interface UnSubscribe {
   (): void
 }
-/**
- * subscribe
- *
- * @export
- * @template Action
- * @param {Action['name']} name
- * @param {Todo<Action['data']>} todo
- * @returns {UnSubscribe}
- */
+
 export function subscribe<Action extends createAction>(
   name: Action['name'],
   todo: Todo<Action['data']>
@@ -50,18 +32,19 @@ export function subscribe<Action extends createAction>(
   __listeners.push({ name, todo })
   return () => (__listeners = __listeners.filter(l => l.todo !== todo))
 }
-/**
- * dispatch
- *
- * @export
- * @template Action
- * @param {Action['name']} name
- * @param {Action['data']} data
- */
+
+export function dispatch<Action extends createAction>(
+  name: Action['name']
+): void
 export function dispatch<Action extends createAction>(
   name: Action['name'],
   data: Action['data']
-) {
+): void
+
+export function dispatch<Action extends createAction>(
+  name: Action['name'],
+  data?: Action['data']
+): void {
   const listeners = __listeners.reduce(
     (out, cur) => (match(cur.name, name) ? out.concat(cur) : out),
     [] as Listener[]
